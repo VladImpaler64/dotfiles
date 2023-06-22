@@ -31,4 +31,11 @@ return require('packer').startup(function(use)
 		}
 	}
 	use "terrortylor/nvim-comment"
+	use {
+		'nvim-tree/nvim-tree.lua',
+		requires = {
+			'nvim-tree/nvim-web-devicons', -- optional
+		},
+	}
+	use 'brenoprata10/nvim-highlight-colors'
 end)

@@ -34,3 +34,4 @@ function UseColorScheme(color)
 end
 
 UseColorScheme()
+require 'nvim-highlight-colors'.setup()
