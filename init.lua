@@ -110,54 +110,29 @@ require('lazy').setup({
 
   {
     -- Theme 
-    "ellisonleao/gruvbox.nvim", name = "gruvbox", priority = 1000,
+    "rebelot/kanagawa.nvim", priority = 1000,
     config = function()
-      require("gruvbox").setup({
-        undercurl = false,
-        underline = false,
-        bold = true,
-        italic = {
-          strings = false,
-          comments = true,
-          operators = false,
-          folds = true,
+      require('kanagawa').setup({
+        compile = false,             -- enable compiling the colorscheme
+        undercurl = true,            -- enable undercurls
+        commentStyle = { italic = true },
+        functionStyle = { italic = true },
+        keywordStyle = { italic = true},
+        statementStyle = { bold = true },
+        typeStyle = {},
+        transparent = true,         -- do not set background color
+        dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+        terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+        colors = {                   -- add/modify theme and palette colors
+          palette = {},
+          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
         },
-        strikethrough = true,
-        invert_selection = false,
-        invert_signs = false,
-        invert_tabline = false,
-        invert_intend_guides = false,
-        inverse = true, -- invert background for search, diffs, statuslines and errors
-        contrast = "hard", -- can be "hard", "soft" or empty string
-        palette_overrides = {
-          dark1 = "#34353e",
-          gray = "#46404f",
-          bright_red = "#de2d17",
-          bright_green = "#cbce38", -- Strings y metodos
-          bright_yellow = "#fabd2f",
-          bright_blue = "#83a598", -- Nombres
-          bright_purple = "#d3869b",
-          bright_aqua = "#8ec07c",
-          bright_orange = "#fe8019", -- Signos
-          neutral_red = "#cc241d",
-          neutral_green = "#98971a",
-          neutral_yellow = "#d79921",
-          neutral_blue = "#458588",
-          neutral_purple = "#b16286",
-          neutral_aqua = "#689d6a",
-          neutral_orange = "#d65d0e",
-          faded_red = "#9d0006",
-          faded_green = "#79740e",
-          faded_yellow = "#b57614",
-          faded_blue = "#076678",
-          faded_purple = "#8f3f71",
-          faded_aqua = "#427b58",
-          faded_orange = "#af3a03",
-        },
-        dim_inactive = false,
-        transparent_mode = false,
+        overrides = function(colors) -- add/modify highlights
+          return {}
+        end,
+        theme = "dragon",              -- Load "wave" theme when 'background' option is not set
       })
-    vim.cmd.colorscheme "gruvbox"
+      vim.cmd("colorscheme kanagawa")
     end
   },
 
