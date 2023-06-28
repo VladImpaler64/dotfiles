@@ -91,20 +91,20 @@ require('lazy').setup({
   {
     'brenoprata10/nvim-highlight-colors',
     config = function()
-    require("nvim-highlight-colors").setup({
-      render = 'background', -- or 'foreground' or 'first_column'
-      enable_named_colors = true,
-      enable_tailwind = false,
-      custom_colors = {
-        -- label property will be used as a pattern initially(string.gmatch), therefore you need to escape the special characters by yourself with % 
-        {label = '%-%-theme%-font%-color', color = '#fff'},
-        {label = '%-%-theme%-background%-color', color = '#23222f'},
-        {label = '%-%-theme%-primary%-color', color = '#0f1219'},
-        {label = '%-%-theme%-secondary%-color', color = '#5a5d64'},
-        {label = '%-%-theme%-contrast%-color', color = '#fff'},
-        {label = '%-%-theme%-accent%-color', color = '#55678e'},
-      }
-    })
+      require("nvim-highlight-colors").setup({
+        render = 'background', -- or 'foreground' or 'first_column'
+        enable_named_colors = true,
+        enable_tailwind = false,
+        custom_colors = {
+          -- label property will be used as a pattern initially(string.gmatch), therefore you need to escape the special characters by yourself with % 
+          {label = '%-%-theme%-font%-color', color = '#fff'},
+          {label = '%-%-theme%-background%-color', color = '#23222f'},
+          {label = '%-%-theme%-primary%-color', color = '#0f1219'},
+          {label = '%-%-theme%-secondary%-color', color = '#5a5d64'},
+          {label = '%-%-theme%-contrast%-color', color = '#fff'},
+          {label = '%-%-theme%-accent%-color', color = '#55678e'},
+        }
+      })
     end
   },
 
@@ -114,18 +114,23 @@ require('lazy').setup({
     config = function()
       require('kanagawa').setup({
         compile = false,             -- enable compiling the colorscheme
-        undercurl = true,            -- enable undercurls
+        undercurl = false,            -- enable undercurls
         commentStyle = { italic = true },
         functionStyle = { italic = true },
         keywordStyle = { italic = true},
         statementStyle = { bold = true },
-        typeStyle = {},
+        typeStyle = { bold = true },
         transparent = true,         -- do not set background color
         dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
         terminalColors = true,       -- define vim.g.terminal_color_{0,17}
         colors = {                   -- add/modify theme and palette colors
           palette = {},
-          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+          theme = { wave = {}, lotus = {}, dragon = {}, all = {
+            ui = {
+              bg_gutter = "none"
+            }
+          }
+          },
         },
         overrides = function(colors) -- add/modify highlights
           return {}
@@ -477,29 +482,29 @@ vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +4<CR>")
 --Window move
 vim.keymap.set("n", "<Tab>", "<C-6>")
 vim.keymap.set("n", "<S-Tab>", function()
-	if vim.bo.filetype == "NvimTree" then
-		vim.cmd("wincmd w")
-	else
-	vim.cmd("wincmd w")
-	end
+  if vim.bo.filetype == "NvimTree" then
+    vim.cmd("wincmd w")
+  else
+    vim.cmd("wincmd w")
+  end
 end)
-vim.keymap.set("i", "<>", "<C-w>")
+-- vim.keymap.set("i", "<>", "<C-w>")
 --Remaps
 vim.keymap.set("n", "<leader>t", function()
-	if vim.bo.buftype ~= "terminal" then
-		vim.cmd("bel 6split")
-		vim.cmd("terminal")
-	else
-		vim.cmd("bun!")
-	end
+  if vim.bo.buftype ~= "terminal" then
+    vim.cmd("bel 6split")
+    vim.cmd("terminal")
+  else
+  vim.cmd("bun!")
+  end
 end)
 vim.keymap.set("n", "<leader>q", "<cmd>qa<CR>")
 vim.keymap.set("n", "<leader>c", function()
-	if vim.bo.buftype ~= "terminal" then
-		vim.cmd("bd")
-	else
-		vim.cmd("bun!")
-	end
+  if vim.bo.buftype ~= "terminal" then
+    vim.cmd("bd")
+  else
+  vim.cmd("bun!")
+  end
 end
 )
 vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>") -- Abrir el explorador
@@ -517,7 +522,9 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("i", "{", "{}<Esc>ha")
 vim.keymap.set("i", "(", "()<Esc>ha")
 vim.keymap.set("i", "[", "[]<Esc>ha")
+vim.keymap.set("i", "{<CR>", "{<CR>}<Esc>ko")
 vim.keymap.set("i", '"', '""<Esc>ha')
+vim.keymap.set("i", '->', '->  {<CR><Tab><CR>}<Esc>kk$hha')
 vim.keymap.set("i", "`", "``<Esc>ha")
 vim.keymap.set("i", "/*", "/*  */<Esc>hhha")
 function CheckFT()
@@ -532,4 +539,3 @@ vim.keymap.set("n", "<C-f>", "/")
 vim.cmd("autocmd BufEnter * set formatoptions-=cro")
 vim.keymap.set("v", "<C-v>", '"+p')
 vim.keymap.set("v", "<C-c>", '"+y')
--- Popup config
