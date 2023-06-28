@@ -89,41 +89,75 @@ require('lazy').setup({
   },
 
   {
-    -- Theme 
-    "catppuccin/nvim", name = "catppuccin", priority = 1000,
+    'brenoprata10/nvim-highlight-colors',
     config = function()
-      require("catppuccin").setup({
-        flavour = "mocha", -- latte, frappe, macchiato, mocha
-        transparent_background = true,
-        color_overrides = {
-          all = {},
-          latte = {},
-          frappe = {},
-          macchiato = {},
-          mocha = {
-            rosewater = "#F5E0DC",
-            flamingo = "#F2CDCD",
-            pink = "#e398e3", -- Unicode
-            mauve = "#c46077", -- Keywords
-            red = "#F38BA8",
-            maroon = "#edc5ed", -- Special
-            peach = "#80321f", -- Nativos 
-            yellow = "#df901f", -- Types
-            green = "#d6bf96", -- String
-            teal = "#676e56", -- Macros
-            sky = "#d8a9d8", -- Signs
-            sapphire = "#a500e0",
-            blue = "#377299", -- Functions
-            lavender = "#c8c0ff", -- std
-            overlay0 = "#3b3d7c", -- Comments
-          },
-        },
-        styles = {
-          keywords = { "bold" }
-        }
-      })
+    require("nvim-highlight-colors").setup({
+      render = 'background', -- or 'foreground' or 'first_column'
+      enable_named_colors = true,
+      enable_tailwind = false,
+      custom_colors = {
+        -- label property will be used as a pattern initially(string.gmatch), therefore you need to escape the special characters by yourself with % 
+        {label = '%-%-theme%-font%-color', color = '#fff'},
+        {label = '%-%-theme%-background%-color', color = '#23222f'},
+        {label = '%-%-theme%-primary%-color', color = '#0f1219'},
+        {label = '%-%-theme%-secondary%-color', color = '#5a5d64'},
+        {label = '%-%-theme%-contrast%-color', color = '#fff'},
+        {label = '%-%-theme%-accent%-color', color = '#55678e'},
+      }
+    })
+    end
+  },
 
-      vim.cmd.colorscheme 'catppuccin'
+  {
+    -- Theme 
+    "ellisonleao/gruvbox.nvim", name = "gruvbox", priority = 1000,
+    config = function()
+      require("gruvbox").setup({
+        undercurl = false,
+        underline = false,
+        bold = true,
+        italic = {
+          strings = false,
+          comments = true,
+          operators = false,
+          folds = true,
+        },
+        strikethrough = true,
+        invert_selection = false,
+        invert_signs = false,
+        invert_tabline = false,
+        invert_intend_guides = false,
+        inverse = true, -- invert background for search, diffs, statuslines and errors
+        contrast = "hard", -- can be "hard", "soft" or empty string
+        palette_overrides = {
+          dark1 = "#34353e",
+          gray = "#46404f",
+          bright_red = "#de2d17",
+          bright_green = "#cbce38", -- Strings y metodos
+          bright_yellow = "#fabd2f",
+          bright_blue = "#83a598", -- Nombres
+          bright_purple = "#d3869b",
+          bright_aqua = "#8ec07c",
+          bright_orange = "#fe8019", -- Signos
+          neutral_red = "#cc241d",
+          neutral_green = "#98971a",
+          neutral_yellow = "#d79921",
+          neutral_blue = "#458588",
+          neutral_purple = "#b16286",
+          neutral_aqua = "#689d6a",
+          neutral_orange = "#d65d0e",
+          faded_red = "#9d0006",
+          faded_green = "#79740e",
+          faded_yellow = "#b57614",
+          faded_blue = "#076678",
+          faded_purple = "#8f3f71",
+          faded_aqua = "#427b58",
+          faded_orange = "#af3a03",
+        },
+        dim_inactive = false,
+        transparent_mode = false,
+      })
+    vim.cmd.colorscheme "gruvbox"
     end
   },
 
@@ -162,7 +196,7 @@ require('lazy').setup({
     config = function()
       require("nvim-tree").setup({
         view = {
-          width = 30,
+          width = 25,
         },
         update_focused_file = {
           enable = true,
@@ -179,8 +213,8 @@ require('lazy').setup({
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
+      char = '',
+      show_trailing_blankline_indent = true,
       space_char_blankline = "",
       show_current_context = true,
       show_current_context_start = true,
@@ -457,9 +491,9 @@ vim.o.scrolloff = 8
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 --terminal config
-vim.opt.shell = "pwsh"
+vim.opt.shell = "bash"
 vim.keymap.set("t", "ñj", [[<C-\><C-n>]])
-vim.opt.shell = "pwsh"
+vim.opt.shell = "bash"
 -- terminal movement
 vim.keymap.set("n", "<S-Up>", "<cmd>horizontal resize -4<CR>")
 vim.keymap.set("n", "<S-Down>", "<cmd>horizontal resize +4<CR>")
@@ -519,3 +553,8 @@ function CheckFT()
   end
 end
 vim.cmd("autocmd BufRead * lua CheckFT()")
+vim.keymap.set("n", "<C-f>", "/")
+vim.cmd("autocmd BufEnter * set formatoptions-=cro")
+vim.keymap.set("v", "<C-v>", '"+p')
+vim.keymap.set("v", "<C-c>", '"+y')
+-- Popup config
