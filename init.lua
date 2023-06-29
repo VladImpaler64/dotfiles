@@ -162,7 +162,7 @@ require('lazy').setup({
     config = function()
       require("nvim-tree").setup({
         view = {
-          width = 30,
+          width = 35,
         },
         update_focused_file = {
           enable = true,
@@ -182,8 +182,6 @@ require('lazy').setup({
       char = '┊',
       show_trailing_blankline_indent = false,
       space_char_blankline = "",
-      show_current_context = true,
-      show_current_context_start = true,
     },
   },
 
@@ -501,6 +499,7 @@ vim.keymap.set("n", "<C-down>", "<C-d>zz")
 vim.keymap.set("n", "<C-up>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "<C-f>", "/")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
