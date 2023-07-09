@@ -539,3 +539,13 @@ vim.keymap.set("n", "<C-f>", "/")
 vim.cmd("autocmd BufEnter * set formatoptions-=cro")
 vim.keymap.set("v", "<C-v>", '"+p')
 vim.keymap.set("v", "<C-c>", '"+y')
+
+-- Activar tabstop
+function CheckFT()
+	if vim.bo.filetype == "NvimTree" then
+		return
+	else
+		vim.cmd(".tab sball | tabprevious")
+	end
+end
+vim.cmd("autocmd BufRead * lua CheckFT()")
