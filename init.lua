@@ -176,11 +176,8 @@ require('lazy').setup({
     config = function()
       require("nvim-tree").setup({
         view = {
-<<<<<<< HEAD
           width = 35,
-=======
           width = 25,
->>>>>>> f22eed32f316007422574fc4f3dfc59865465132
         },
         update_focused_file = {
           enable = true,
@@ -473,9 +470,9 @@ vim.o.scrolloff = 8
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 --terminal config
-vim.opt.shell = "bash"
+vim.opt.shell = "pwsh"
 vim.keymap.set("t", "ñj", [[<C-\><C-n>]])
-vim.opt.shell = "bash"
+vim.opt.shell = "pwsh"
 -- terminal movement
 vim.keymap.set("n", "<S-Up>", "<cmd>horizontal resize -4<CR>")
 vim.keymap.set("n", "<S-Down>", "<cmd>horizontal resize +4<CR>")
